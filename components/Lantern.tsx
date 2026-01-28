@@ -1,20 +1,21 @@
 import React from "react";
+import horseFrame from "../assets/horse-frame.png"; // move image to src/assets
 
 type Props = {
-  src?: string; // default path
+  src?: string;
   className?: string;
-  /** 0..1 */
   shimmerOpacity?: number;
 };
 
 export default function HorseFrameBackdrop({
-  src = "/assets/horse-frame.png",
+  src,
   className = "",
   shimmerOpacity = 0.22,
 }: Props) {
+  const finalSrc = src ?? horseFrame;
+
   return (
     <div className={`relative ${className}`}>
-      {/* Glow halo behind */}
       <div
         className="pointer-events-none absolute -inset-16 rounded-full blur-3xl opacity-40"
         style={{
@@ -23,9 +24,8 @@ export default function HorseFrameBackdrop({
         }}
       />
 
-      {/* Main image */}
       <img
-        src={src}
+        src={finalSrc}
         alt="Golden Horse Emblem"
         className="relative z-10 w-full h-full object-contain select-none pointer-events-none"
         draggable={false}
@@ -36,15 +36,14 @@ export default function HorseFrameBackdrop({
         }}
       />
 
-      {/* Shimmer sweep overlay (masked by the image) */}
       <div
         className="pointer-events-none absolute inset-0 z-20"
         style={{
-          WebkitMaskImage: `url(${src})`,
+          WebkitMaskImage: `url(${finalSrc})`,
           WebkitMaskRepeat: "no-repeat",
           WebkitMaskSize: "contain",
           WebkitMaskPosition: "center",
-          maskImage: `url(${src})`,
+          maskImage: `url(${finalSrc})`,
           maskRepeat: "no-repeat",
           maskSize: "contain",
           maskPosition: "center",
@@ -58,15 +57,14 @@ export default function HorseFrameBackdrop({
         }}
       />
 
-      {/* Fine edge glow (subtle premium outline) */}
       <div
         className="pointer-events-none absolute inset-0 z-30"
         style={{
-          WebkitMaskImage: `url(${src})`,
+          WebkitMaskImage: `url(${finalSrc})`,
           WebkitMaskRepeat: "no-repeat",
           WebkitMaskSize: "contain",
           WebkitMaskPosition: "center",
-          maskImage: `url(${src})`,
+          maskImage: `url(${finalSrc})`,
           maskRepeat: "no-repeat",
           maskSize: "contain",
           maskPosition: "center",
