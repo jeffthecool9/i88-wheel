@@ -1,10 +1,10 @@
 import React from "react";
-import horseFrame from "../assets/horse-frame.png"; // move image to src/assets
+import horseFrame from "../assets/horse-frame.png"; // ✅ Vite bundles this correctly
 
 type Props = {
   src?: string;
   className?: string;
-  shimmerOpacity?: number;
+  shimmerOpacity?: number; // 0..1
 };
 
 export default function HorseFrameBackdrop({
@@ -16,6 +16,7 @@ export default function HorseFrameBackdrop({
 
   return (
     <div className={`relative ${className}`}>
+      {/* Glow halo behind */}
       <div
         className="pointer-events-none absolute -inset-16 rounded-full blur-3xl opacity-40"
         style={{
@@ -24,6 +25,7 @@ export default function HorseFrameBackdrop({
         }}
       />
 
+      {/* Main image */}
       <img
         src={finalSrc}
         alt="Golden Horse Emblem"
@@ -36,6 +38,7 @@ export default function HorseFrameBackdrop({
         }}
       />
 
+      {/* Shimmer sweep overlay (masked by the image) */}
       <div
         className="pointer-events-none absolute inset-0 z-20"
         style={{
@@ -57,6 +60,7 @@ export default function HorseFrameBackdrop({
         }}
       />
 
+      {/* Fine edge glow */}
       <div
         className="pointer-events-none absolute inset-0 z-30"
         style={{
