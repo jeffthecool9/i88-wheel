@@ -6,17 +6,30 @@ const App: React.FC = () => {
   return (
     <main className="min-h-screen bg-[#7f1d1d] relative overflow-x-hidden flex flex-col items-center justify-start py-6 sm:py-10 md:py-20">
       {/* Background CNY Visuals */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      <div className="fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
         {/* Deep Imperial Red Gradient Base */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,_#ee1c25_0%,_#b91c1c_70%,_#450a0a_100%)]" />
 
         {/* Atmospheric Glow */}
         <div className="absolute top-[-5%] left-[-5%] w-[60%] h-[70%] bg-[#ef4444] rounded-full blur-[140px] opacity-20 animate-pulse" />
 
+        {/* ✅ DEBUG (remove later): confirms Vercel can load the asset */}
+        <div className="absolute top-4 left-4 z-[9999] rounded-xl bg-black/70 px-3 py-2 text-white text-xs">
+          <div className="font-bold tracking-widest opacity-90">ASSET DEBUG</div>
+          <div className="opacity-80">/assets/horse-frame.png</div>
+          <img
+            src="/assets/horse-frame.png"
+            alt="debug horse"
+            className="mt-2 w-24 h-24 object-contain border border-white/20 rounded-md"
+            onLoad={() => console.log("✅ Loaded /assets/horse-frame.png")}
+            onError={() => console.log("❌ FAILED /assets/horse-frame.png")}
+          />
+        </div>
+
         {/* HERO MOTIF CONTAINER */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%] w-full max-w-[1350px] aspect-square flex items-center justify-center">
           {/* THE VERSACE ROUNDEL BACKGROUND */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-30 sm:opacity-50 z-10">
+          <div className="absolute inset-0 flex items-center justify-center opacity-30 sm:opacity-50 z-10 pointer-events-none">
             <svg viewBox="0 0 600 600" className="w-full h-full overflow-visible">
               <defs>
                 <pattern
@@ -46,8 +59,8 @@ const App: React.FC = () => {
             </svg>
           </div>
 
-          {/* ✅ REPLACED: YOUR LOCAL HORSE-FRAME PNG LAYER */}
-          <div className="relative w-full h-full flex items-center justify-center z-20">
+          {/* ✅ Local Horse Emblem */}
+          <div className="relative w-full h-full flex items-center justify-center z-20 pointer-events-none">
             {/* grounding shadow */}
             <div className="absolute bottom-[22%] md:bottom-[18%] w-[35%] h-[6%] z-10 animate-shadow-breathe opacity-70">
               <div className="absolute inset-0 bg-black/90 blur-[20px] rounded-[100%] scale-x-[1.6] transform-gpu" />
@@ -67,16 +80,16 @@ const App: React.FC = () => {
             </div>
 
             {/* Subtle Luxury Dust Overlay */}
-            <div className="absolute inset-0 pointer-events-none opacity-20 z-30">
+            <div className="absolute inset-0 opacity-20 z-30">
               {[...Array(12)].map((_, i) => (
                 <div
                   key={i}
                   className="absolute w-1 h-1 bg-[#f9df9d] rounded-full blur-[1px]"
                   style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                    animation: `dust-float ${7 + Math.random() * 7}s infinite linear`,
-                    animationDelay: `${Math.random() * 5}s`,
+                    left: `${(i * 7.5) % 100}%`,
+                    top: `${(i * 11) % 100}%`,
+                    animation: `dust-float ${7 + (i % 5)}s infinite linear`,
+                    animationDelay: `${(i % 6) * 0.6}s`,
                   }}
                 />
               ))}
@@ -86,7 +99,7 @@ const App: React.FC = () => {
 
         {/* Global Texture Layer */}
         <div
-          className="absolute inset-0 opacity-[0.05] mix-blend-overlay"
+          className="absolute inset-0 opacity-[0.05] mix-blend-overlay pointer-events-none"
           style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/black-linen.png")' }}
         />
       </div>
@@ -99,7 +112,7 @@ const App: React.FC = () => {
         }
         @keyframes shadow-breathe {
           0%, 100% { transform: scaleX(1) opacity(0.7); filter: blur(20px); }
-          50% { transform: scaleX(1.15) opacity(0.4); filter: blur(35px); }
+          50% { transform: scaleX(1.15) opacity: 0.4; filter: blur(35px); }
         }
         @keyframes dust-float {
           0% { transform: translateY(0) translateX(0) opacity: 0; }
@@ -107,7 +120,7 @@ const App: React.FC = () => {
           80% { opacity: 0.8; }
           100% { transform: translateY(-150px) translateX(40px) opacity: 0; }
         }
-        .animate-horse-entrance { animation: horse-entrance 2s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
+        .animate-horse-entrance { animation: horse-entrance 1.6s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
         .animate-shadow-breathe { animation: shadow-breathe 7s ease-in-out infinite alternate; }
       `}</style>
 
@@ -125,12 +138,12 @@ const App: React.FC = () => {
           <h1 className="cinzel text-5xl sm:text-7xl md:text-9xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-[#ffffff] via-[#f9df9d] to-[#d4af37] drop-shadow-[0_20px_60px_rgba(0,0,0,0.85)] leading-tight tracking-tight">
             LUNAR FORTUNE
           </h1>
+
           <p className="montserrat text-white/95 text-[10px] sm:text-xl tracking-[0.6em] sm:tracking-[1em] uppercase font-black max-w-[280px] sm:max-w-4xl mx-auto leading-relaxed drop-shadow-2xl">
             YEAR OF THE HORSE • CELEBRATING PROSPERITY
           </p>
         </header>
 
-        {/* Wheel stays front */}
         <WheelSection />
 
         <footer className="mt-12 sm:mt-24 md:mt-32 text-center py-6 sm:py-10">
